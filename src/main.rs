@@ -7,6 +7,8 @@ slint::slint! {
 
     component Button {
         in property <string> text;
+        min-height: 30px;
+        min-width: 30px;
         Rectangle {
             background: ta.pressed ? #747e88 : ta.has-hover ? #3cbf7b : teal;
             animate background { duration: 150ms; }
@@ -24,13 +26,13 @@ slint::slint! {
     
     export component App inherits Window{
 
-        in property <int> counter: 1;
+        in property <int> value: 1;
     
         GridLayout {
             padding: 10px;
             spacing: 10px;
             Text {
-                text: counter; 
+                text: value; 
                 colspan: 3;
             }
             Row{
@@ -59,9 +61,10 @@ fn main() {
     let app = App::new().unwrap();
     let weak = app.as_weak();
 
-    app.global::<CalcLogic>().on_button_pressed(moved | value | {
+    app.global::<CalcLogic>().on_button_pressed(move | value | {
         let app = weak.unwrap();
-        app.set_value(value.parse().unwrap());
+        let val: i32 = value.parse().unwrap();
+        app.set_value(app.get_value() * 10 + val);
     },
 );
     
@@ -70,3 +73,5 @@ fn main() {
 }
 
 // https://blog.ashutoshkrris.in/how-to-download-youtube-playlist-using-python
+//tracing = "0.1"
+//libloading = "0.7"
