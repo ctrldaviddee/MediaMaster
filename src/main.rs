@@ -68,3 +68,5 @@ fn main() {
     app.run().unwrap();
     println!("Hello, world!");
 }
+
+// https://blog.ashutoshkrris.in/how-to-download-youtube-playlist-using-python
