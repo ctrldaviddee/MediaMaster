@@ -3,10 +3,13 @@ export global Globals {
     callback openUrl(string);
     callback startInstaller();
 
+    in-out property <int> WHERE_INDEX: 0;
+
     // True Stand for Light Theme
     in-out property <bool> currentTheme: true;
     // True Stand for PersianApp
-    in-out property <bool> isEnglishPage: true;
+    // in-out property <bool> isEnglishPage: true;
+
 
     out property <color> lightTheme: #FAFAFA;
     out property <color> darkTheme: #323232;
@@ -20,7 +23,9 @@ export global Globals {
             themeStatus = primaryDark;
         }
     }
-    public function changeLang(){
-        isEnglishPage = !isEnglishPage;
+
+    public function changePage() {
+        return WHERE_INDEX;
     }
+
 }

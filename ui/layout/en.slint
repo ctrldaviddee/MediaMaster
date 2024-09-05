@@ -1,8 +1,14 @@
 import { Button, VerticalBox, HorizontalBox, GridBox } from "std-widgets.slint";
 import { Globals } from "globals.slint";
+
+
+
 export component EnglishApp {
+
     VerticalLayout {
+
         HorizontalLayout {
+
             padding-left: 30px;
             padding-right: 30px;
             padding-top: 10px;
@@ -39,7 +45,7 @@ export component EnglishApp {
                 }
             }
 
-            Rectangle { }
+            // Rectangle { }
 
             TouchArea {
                 clicked => {
@@ -59,56 +65,49 @@ export component EnglishApp {
                 HorizontalBox {
                     alignment: center;
                     Image {
+                        colorize: @radial-gradient(circle, #25d9a2, #1bb085, #2687ce, #2687ce);
                         image-fit: fill;
-                        width: 100.52px;
-                        height: 166px;
-                        source: @image-url("../assets/logo.png");
+                        width: 300px;
+                        height: 300px;
+                        source: @image-url("../assets/media_master.png");
                     }
                 }
 
-                Image {
-                    height: 80px;
-                    source: @image-url("../assets/parchlinux-en.png");
-                }
             }
         }
 
         VerticalLayout {
+  
             HorizontalBox {
-                Image {
-                    colorize: Globals.themeStatus;
-                    source: @image-url("../assets/parchlinuxtext-en.png");
-                    height: 40px;
-                }
-            }
-
-            HorizontalBox {
-                height: 50px;
+                height: 100px;
                 Text {
                     color: Globals.themeStatus;
                     horizontal-alignment: center;
-                    text: "We will be glad if you support us!";
+                    text: "MediaMaster's your key to any stream, download your favorites, \n it's a breeze like a dream!";
                     font-size: 20px;
                     font-family: "Vazirmatn";
                     font-weight: 900;
                 }
             }
 
-            HorizontalBox {
+             HorizontalBox {
                 height: 50px;
                 alignment: center;
                 GridBox {
-                    spacing: 30px;
-                    TouchArea {
+                    spacing: 20px;
+                    youtube_touch_area := TouchArea {
+                        
                         Image {
-                            colorize: Globals.themeStatus;
+                            colorize: youtube_touch_area.has-hover ? #1cb287 : rgba(255,0,0,255);
                             width: 30px;
                             height: 30px;
-                            source: @image-url("../assets/github.png");
+                            source: @image-url("../assets/youtube.png");
+                            
                         }
 
-                        clicked => {
-                            Globals.openUrl("https://github.com/parchlinux");
+                        double-clicked => {
+                            Globals.WHERE_INDEX = 1;
+                            Globals.changePage();
                         }
                     }
 
@@ -219,7 +218,7 @@ export component EnglishApp {
 
                     color: Globals.themeStatus;
                     height: 25px;
-                    text: "Hit the button below to install Parch on your computer";
+                    text: "Hit a button above";
                     font-size: 16px;
                     font-family: "Vazirmatn";
                     horizontal-alignment: center;
@@ -271,7 +270,7 @@ export component EnglishApp {
                 alignment: start;
                 TouchArea {
                     clicked => {
-                        Globals.changeLang();
+                       
                     }
                     HorizontalBox {
                         padding-left: 30px;

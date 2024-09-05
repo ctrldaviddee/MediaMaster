@@ -1,8 +1,9 @@
 import { Button, VerticalBox, HorizontalBox, GridBox} from "std-widgets.slint";
 import "assets/vazirmatn.ttf";
 import "assets/Inter-Regular.ttf";
-import {EnglishApp,PersianApp} from "layout/pages.slint";
+import {EnglishApp, YoutubePage} from "layout/pages.slint";
 import { Globals } from "layout/globals.slint";
+// import { FilledButton, MagicVerticalBox, MagicText } from "@vivi/magic.slint";
 
 // ReExport for Native access
 export { Globals }
@@ -20,8 +21,10 @@ export component App inherits Window {
             easing: ease-in-out;
         }
         VerticalLayout {
-            if Globals.isEnglishPage: EnglishApp { }
-            if !Globals.isEnglishPage: PersianApp { }
+            if Globals.WHERE_INDEX == 0: EnglishApp { }
+            if Globals.WHERE_INDEX == 1: YoutubePage { }
         }
     }
+
+   
 }
