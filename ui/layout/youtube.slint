@@ -1,16 +1,12 @@
-import { Button, VerticalBox, HorizontalBox, GridBox } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, GridBox, LineEdit } from "std-widgets.slint";
 import "../assets/SUSE-VariableFont_wght.ttf";
 import "../assets/SUSE-Regular.ttf";
 import "../assets/SUSE-Light.ttf";
 import { Globals } from "globals.slint";
 
-
 export component YoutubePage {
-
     VerticalLayout {
-
         HorizontalLayout {
-
             padding-left: 30px;
             padding-right: 30px;
             padding-top: 10px;
@@ -28,7 +24,6 @@ export component YoutubePage {
                             vertical-alignment: center;
                             source: @image-url("../assets/night-mode.png");
                         }
-
                         Text {
                             vertical-alignment: center;
                             horizontal-alignment: right;
@@ -36,19 +31,15 @@ export component YoutubePage {
                             font-family: "Vazirmatn";
                             font-weight: 900;
                             font-size: 16px;
-
                             color: Globals.themeStatus;
                         }
                     }
-
                     clicked => {
                         Globals.switchTheme();
                     }
                 }
             }
-
             Rectangle { }
-
             TouchArea {
                 clicked => {
                     Globals.close();
@@ -60,12 +51,8 @@ export component YoutubePage {
             }
         }
 
-       
-
         VerticalLayout {
-            
             h := HorizontalLayout {
-
                 padding-left: 30px;
                 padding-top: 0px;
                 padding-right: 30px;
@@ -75,10 +62,9 @@ export component YoutubePage {
                 Rectangle {
                     clip: true;
                     ret := TouchArea {
-                         HorizontalBox {
+                        HorizontalBox {
                             alignment: center;
                             padding: 0px;
-                            
                             Image {
                                 width: 100px;
                                 height: 100%;
@@ -86,7 +72,6 @@ export component YoutubePage {
                                 vertical-alignment: center;
                                 source: @image-url("../assets/media_master.png");
                             }
-    
                             Text {
                                 vertical-alignment: center;
                                 horizontal-alignment: left;
@@ -97,14 +82,12 @@ export component YoutubePage {
                                 color: ret.has-hover ? @radial-gradient(circle, #25d9a2, #0a6f52, #2687ce, #1a71b0) : @radial-gradient(circle, #25d9a2, #1bb085, #2687ce, #2687ce);
                             }
                         }
-    
                         clicked => {
-                           Globals.WHERE_INDEX = 0;
-                           Globals.changePage()
+                            Globals.WHERE_INDEX = 0;
+                            Globals.changePage()
                         }
                     }
                 }
-    
                 Rectangle {
                     Text {
                         text: "Download from Youtube";
@@ -115,14 +98,151 @@ export component YoutubePage {
                         color: Globals.themeStatus;
                     }
                 }
-
             }
-         
         }
 
+        GridLayout {
+            padding: 50px;
+            spacing: 25px;
+         Row{
+            input := LineEdit {
+                placeholder-text: "URL:";
+                horizontal-alignment: left;
+                font-size: 16px;
+                height: 35px;
+                edited => {
 
-        VerticalBox {
-            
+                }
+            }
+         }   
         }
+
+        // VerticalLayout {
+        //     padding: 20px;
+        //     spacing: 10px;
+
+        //     // URL input
+        //     HorizontalBox {
+        //         Text {
+        //             text: "URL:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         TextInput {
+        //             width: 100%;
+        //             text: "Globals.youtubeUrl";
+        //         }
+        //     }
+
+        //     // Video information
+        //     HorizontalBox {
+        //         Text {
+        //             text: "1 video:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Text {
+        //             text: "Starlink Mission.mp4";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //     }
+
+        //     // Stream quality
+        //     HorizontalBox {
+        //         Text {
+        //             text: "Stream Quality:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         VerticalBox {
+        //             // Example of stream options
+        //             for stream in ["mp4 - 1080 - 373.5 MB", "mp4 - 720 - 278.4 MB", "mp4 - 480 - 113.9 MB", "mp4 - 360 - 120.2 MB", "mp4 - 240 - 37.8 MB", "mp4 - 144 - 17.6 MB", "webm - 1080 - 140.7 MB"] :
+        //                 TouchArea {
+        //                     Text {
+        //                         text: stream;
+        //                         font-size: 16px;
+        //                         color: Globals.themeStatus;
+        //                     }
+        //                     clicked => {
+        //                         // Handle stream selection
+        //                     }
+        //                 }
+                    
+        //         }
+        //     }
+
+        //     // Thumbnail
+        //     HorizontalBox {
+        //         Text {
+        //             text: "Thumbnail:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Image {
+        //             source: @image-url("../assets/Screenshot from 2024-09-06 00-39-58.png");
+        //             width: 200px;
+        //             height: 100px;
+        //         }
+        //     }
+
+        //     // Video details
+        //     HorizontalBox {
+        //         Text {
+        //             text: "Name:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Text {
+        //             text: "Starlink Mission.mp4";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //     }
+        //     HorizontalBox {
+        //         Text {
+        //             text: "Size:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Text {
+        //             text: "450.9 MB";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //     }
+        //     HorizontalBox {
+        //         Text {
+        //             text: "Folder:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Text {
+        //             text: "/test";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //     }
+        //     HorizontalBox {
+        //         Text {
+        //             text: "video dash - Resumable:";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //         Text {
+        //             text: "Yes";
+        //             font-size: 16px;
+        //             color: Globals.themeStatus;
+        //         }
+        //     }
+
+        //     // Download button
+        //     Button {
+        //         text: "Download";
+        //         clicked => {
+        //             // Handle download action
+        //         }
+        //     }
+        // }
     }
 }
