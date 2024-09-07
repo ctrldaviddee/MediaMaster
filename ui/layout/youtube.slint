@@ -1,4 +1,6 @@
-import { Button, VerticalBox, HorizontalBox, GridBox, LineEdit } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, GridBox, GroupBox } from "std-widgets.slint";
+import { Border } from "@vivi/foundation.slint";
+import { TextField, Icons, IconButton, MagicVerticalBox, GroupBox } from "@vivi/magic.slint";
 import "../assets/SUSE-VariableFont_wght.ttf";
 import "../assets/SUSE-Regular.ttf";
 import "../assets/SUSE-Light.ttf";
@@ -24,6 +26,7 @@ export component YoutubePage {
                             vertical-alignment: center;
                             source: @image-url("../assets/night-mode.png");
                         }
+
                         Text {
                             vertical-alignment: center;
                             horizontal-alignment: right;
@@ -34,12 +37,13 @@ export component YoutubePage {
                             color: Globals.themeStatus;
                         }
                     }
+
                     clicked => {
                         Globals.switchTheme();
                     }
                 }
             }
-            Rectangle { }
+
             TouchArea {
                 clicked => {
                     Globals.close();
@@ -72,6 +76,7 @@ export component YoutubePage {
                                 vertical-alignment: center;
                                 source: @image-url("../assets/media_master.png");
                             }
+
                             Text {
                                 vertical-alignment: center;
                                 horizontal-alignment: left;
@@ -82,12 +87,14 @@ export component YoutubePage {
                                 color: ret.has-hover ? @radial-gradient(circle, #25d9a2, #0a6f52, #2687ce, #1a71b0) : @radial-gradient(circle, #25d9a2, #1bb085, #2687ce, #2687ce);
                             }
                         }
+
                         clicked => {
                             Globals.WHERE_INDEX = 0;
                             Globals.changePage()
                         }
                     }
                 }
+
                 Rectangle {
                     Text {
                         text: "Download from Youtube";
@@ -101,21 +108,63 @@ export component YoutubePage {
             }
         }
 
-        GridLayout {
-            padding: 50px;
-            spacing: 25px;
-         Row{
-            input := LineEdit {
-                placeholder-text: "URL:";
-                horizontal-alignment: left;
-                font-size: 16px;
-                height: 35px;
-                edited => {
+     
 
+            VerticalLayout {
+                padding: 0;
+                spacing: 10px;
+                GridLayout {
+                    padding-left: 50px;
+                    padding-right: 50px;
+                    padding-top: 25px;
+                    Row {
+                        input := TextField {
+                            prefix_icon: Icons.search;
+                            IconButton {
+                                icon: Icons.clear;
+                                inline: true;
+                                enabled: input.text != "" && input.enabled;
+                                clicked => {
+                                    input.text = "";
+                                }
+                            }
+
+                            placeholder-text: "URL:";
+                            horizontal-alignment: left;
+                            height: 35px;
+                        }
+                    }
+                }
+
+                GridLayout {
+                    padding-right: 50px;
+                    padding-left: 50px;
+                    padding-bottom: 10px;
+                    spacing: 25px;
+                    Rectangle {
+                        background: yellow;
+                        row: 1;
+                    }
+
+                    Rectangle {
+                        background: green;
+                    }
+
+                    Rectangle {
+                        background: blue;
+                        row: 2;
+                        colspan: 2;
+                    }
+
+                    Rectangle {
+                        background: black;
+                        row: 1;
+                        col: 2;
+                        rowspan: 2;
+                    }
                 }
             }
-         }   
-        }
+        
 
         // VerticalLayout {
         //     padding: 20px;
