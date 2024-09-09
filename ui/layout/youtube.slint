@@ -1,4 +1,4 @@
-import { Button, VerticalBox, HorizontalBox, GridBox, GroupBox } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, GridBox, GroupBox, StandardListView, ListView, Switch, Palette} from "std-widgets.slint";
 import { Border } from "@vivi/foundation.slint";
 import { TextField, Icons, IconButton, MagicVerticalBox, GroupBox } from "@vivi/magic.slint";
 import "../assets/SUSE-VariableFont_wght.ttf";
@@ -7,6 +7,7 @@ import "../assets/SUSE-Light.ttf";
 import { Globals } from "globals.slint";
 
 export component YoutubePage {
+
     VerticalLayout {
         HorizontalLayout {
             padding-left: 30px;
@@ -117,7 +118,21 @@ export component YoutubePage {
                     padding-left: 50px;
                     padding-right: 50px;
                     padding-top: 25px;
-                    Row {
+                    spacing: 10px;
+                    Row{
+                       
+                        Switch {
+                            horizontal-stretch: 0;
+                            text: @tr("Dark mode for palettes");
+                            checked: Palette.color-scheme == ColorScheme.dark;
+                            toggled => {                
+                                Palette.color-scheme = self.checked ? ColorScheme.dark : ColorScheme.light;
+                            }
+                        }
+                    }
+
+                    HorizontalLayout {
+                        padding-top: 10px;
                         input := TextField {
                             prefix_icon: Icons.search;
                             IconButton {
@@ -131,8 +146,50 @@ export component YoutubePage {
 
                             placeholder-text: "URL:";
                             horizontal-alignment: left;
-                            height: 35px;
+                            height: 45px;
                         }
+
+
+
+                        download_text := TouchArea {
+                            clicked => {
+                                // Globals.startInstaller();
+                            }
+                            Rectangle {
+                                width: 120px;
+                                height: 44px;
+                                background: Globals.currentTheme ? white : Globals.primaryDark;
+                                animate background, drop-shadow-color, drop-shadow-blur {
+                                    duration: 275ms;
+                                    easing: ease-in-out;
+                                }
+                                border-radius: 8px;
+                                drop-shadow-color: Globals.currentTheme ? #d9d9d9 : #404040;
+                                drop-shadow-blur: 12px;
+                                drop-shadow-offset-x: 2px;
+                                drop-shadow-offset-y: 2px;
+                                HorizontalBox {
+                                    alignment: center;
+        
+                                    Image {
+                                        colorize: Globals.currentTheme ? transparent : white; //#0D40BF;
+                                        image-fit: fill;
+                                        source: @image-url("../assets/inbox.png");
+                                    }
+        
+                                    Text {
+                                        vertical-alignment: center;
+                                        text: "Download";
+                                        font-family: "Vazirmatn";
+                                        color: download_text.has-hover ? @radial-gradient(circle, #25d9a2, #0a6f52, #2687ce, #1a71b0) : @radial-gradient(circle, #25d9a2, #1bb085, #2687ce, #2687ce);
+                                        font-size: 16px;
+                                        font-weight: 900;
+                                    }
+                                }
+                            }
+                        }
+
+
                     }
                 }
 
@@ -140,158 +197,63 @@ export component YoutubePage {
                     padding-right: 50px;
                     padding-left: 50px;
                     padding-bottom: 10px;
-                    spacing: 25px;
+                    spacing: 10px;
                     Rectangle {
-                        background: yellow;
-                        row: 1;
-                    }
-
-                    Rectangle {
-                        background: green;
-                    }
-
-                    Rectangle {
-                        background: blue;
-                        row: 2;
+                        
                         colspan: 2;
+                        HorizontalBox {
+                            vertical-stretch: 1;
+                            GroupBox {
+                                
+                                ListView {
+                                    
+                                    vertical-stretch: 0;
+                                    for i in [0, 1, 2, 3, 4, 5, 6] : HorizontalBox{
+                                        Text {
+                                            text: @tr("item {} ", i);
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        col: 2;
+                        colspan: 2;
+                        HorizontalBox {
+                            
+                            vertical-stretch: 1;
+                            GroupBox {
+                                
+                                ListView {
+                                    vertical-stretch: 0;
+                                    for stream in ["mp4 - 1080 - 373.5 MB", "mp4 - 720 - 278.4 MB", "mp4 - 480 - 113.9 MB", "mp4 - 360 - 120.2 MB", "mp4 - 240 - 37.8 MB", "mp4 - 144 - 17.6 MB", "webm - 1080 - 140.7 MB"] : HorizontalBox{
+                                        Text {
+                                            // text: stream;
+                                         
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     Rectangle {
                         background: black;
+                        col: 3;
                         row: 1;
-                        col: 2;
-                        rowspan: 2;
+                        rowspan: 3;
+                    }
+
+                    Rectangle {
+                        background: blue;
+                        row:1;
+                        rowspan: 3;
+                        colspan: 3;
                     }
                 }
             }
-        
-
-        // VerticalLayout {
-        //     padding: 20px;
-        //     spacing: 10px;
-
-        //     // URL input
-        //     HorizontalBox {
-        //         Text {
-        //             text: "URL:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         TextInput {
-        //             width: 100%;
-        //             text: "Globals.youtubeUrl";
-        //         }
-        //     }
-
-        //     // Video information
-        //     HorizontalBox {
-        //         Text {
-        //             text: "1 video:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Text {
-        //             text: "Starlink Mission.mp4";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //     }
-
-        //     // Stream quality
-        //     HorizontalBox {
-        //         Text {
-        //             text: "Stream Quality:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         VerticalBox {
-        //             // Example of stream options
-        //             for stream in ["mp4 - 1080 - 373.5 MB", "mp4 - 720 - 278.4 MB", "mp4 - 480 - 113.9 MB", "mp4 - 360 - 120.2 MB", "mp4 - 240 - 37.8 MB", "mp4 - 144 - 17.6 MB", "webm - 1080 - 140.7 MB"] :
-        //                 TouchArea {
-        //                     Text {
-        //                         text: stream;
-        //                         font-size: 16px;
-        //                         color: Globals.themeStatus;
-        //                     }
-        //                     clicked => {
-        //                         // Handle stream selection
-        //                     }
-        //                 }
-                    
-        //         }
-        //     }
-
-        //     // Thumbnail
-        //     HorizontalBox {
-        //         Text {
-        //             text: "Thumbnail:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Image {
-        //             source: @image-url("../assets/Screenshot from 2024-09-06 00-39-58.png");
-        //             width: 200px;
-        //             height: 100px;
-        //         }
-        //     }
-
-        //     // Video details
-        //     HorizontalBox {
-        //         Text {
-        //             text: "Name:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Text {
-        //             text: "Starlink Mission.mp4";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //     }
-        //     HorizontalBox {
-        //         Text {
-        //             text: "Size:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Text {
-        //             text: "450.9 MB";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //     }
-        //     HorizontalBox {
-        //         Text {
-        //             text: "Folder:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Text {
-        //             text: "/test";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //     }
-        //     HorizontalBox {
-        //         Text {
-        //             text: "video dash - Resumable:";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //         Text {
-        //             text: "Yes";
-        //             font-size: 16px;
-        //             color: Globals.themeStatus;
-        //         }
-        //     }
-
-        //     // Download button
-        //     Button {
-        //         text: "Download";
-        //         clicked => {
-        //             // Handle download action
-        //         }
-        //     }
-        // }
     }
 }
